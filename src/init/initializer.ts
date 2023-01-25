@@ -3,5 +3,8 @@ import { buildDocs } from './swagger/docs.builder';
 
 export const initializer = (app: INestApplication) => {
   app.setGlobalPrefix('api');
-  buildDocs(app);
+
+  if (process.env.NODE_ENV !== 'production') {
+    buildDocs(app);
+  }
 };
