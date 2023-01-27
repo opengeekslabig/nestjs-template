@@ -1,5 +1,6 @@
 import {
   BelongsTo,
+  HasMany,
   Column,
   DataType,
   ForeignKey,
@@ -8,11 +9,10 @@ import {
 } from 'sequelize-typescript';
 import { UUIDV4 } from 'sequelize';
 import { CredentialsEntities } from '../../authentication/entities/credentials.entities';
+import { OrderEntities } from '@components/orders/entities/orders.entities';
 
 @Table({
-  tableName: 'users_schema',
-  paranoid: true,
-  indexes: [{ fields: ['id'] }],
+  tableName: 'users',
 })
 export class UserEntities extends Model {
   @Column({
@@ -37,4 +37,7 @@ export class UserEntities extends Model {
     hooks: true,
   })
   credentials: CredentialsEntities;
+
+  @HasMany(() => OrderEntities, { onDelete: 'CASCADE', hooks: true })
+  orders: OrderEntities[];
 }

@@ -1,4 +1,4 @@
-import { applyDecorators, SetMetadata, UseGuards } from '@nestjs/common';
+import { applyDecorators, UseGuards } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiForbiddenResponse,
@@ -10,7 +10,6 @@ import { JwtAuthenticationGuard } from '@components/authentication/guards/jwt-au
 export function AuthJWT(options?: IAuthJWTGuardOptions) {
   const opts = { applySwaggerGuard: true, ...options };
   const decorators = [
-    SetMetadata('roleGuardOptions', opts.roleGuard),
     UseGuards(JwtAuthenticationGuard),
     ApiForbiddenResponse({ description: 'Forbidden' }),
   ];

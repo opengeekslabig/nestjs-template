@@ -37,4 +37,10 @@ export class UsersController {
   updateUser(@Param() param: ParamId, @Body() body: UserUpdateRequest) {
     return this.userService.updateUser(body, param.id);
   }
+
+  @AuthJWT()
+  @Get('/orders/:id')
+  userOrders(@Param() param: ParamId) {
+    return this.userService.getUserOrders(param.id);
+  }
 }

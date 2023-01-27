@@ -12,6 +12,7 @@ import { CryptoService } from '@utils/crypto/crypto.service';
 import { userResponse } from '@components/users/mappers/user.mapper';
 import { IUserResponse } from '@components/users/interfaces/user.interfaces';
 import { UserUpdateRequest } from '@components/users/dto/request';
+import { OrderEntities } from '@components/orders/entities/orders.entities';
 
 @Injectable()
 export class UsersService {
@@ -84,5 +85,9 @@ export class UsersService {
     return this.usersRepository
       .updateUser(body, userId)
       .then((res) => userResponse(res));
+  }
+
+  async getUserOrders(userId: string): Promise<UserEntities> {
+    return this.usersRepository.getUserOrders(userId);
   }
 }

@@ -5,6 +5,9 @@ import { RegistrationRequest } from '@components/authentication/dto/request';
 import { CredentialsEntities } from '@components/authentication/entities/credentials.entities';
 import { UserUpdateRequest } from '@components/users/dto/request';
 import { Sequelize } from 'sequelize-typescript';
+import { OrderEntities } from '@components/orders/entities/orders.entities';
+import { OrderItemsEntities } from '@components/orders/entities/orderItems.entities';
+import { ProductEntities } from '@components/products/entities/product.entities';
 
 @Injectable()
 export class UsersRepository {
@@ -95,5 +98,29 @@ export class UsersRepository {
     } catch (e) {
       throw new BadRequestException(e.message);
     }
+  }
+
+  async getUserOrders(userId: string): Promise<UserEntities> {
+    return this.userModel.findOne({
+      where: { id: userId },
+      include: [
+        {
+          model: OrderEntities,
+          attributes: {
+            exclude: ['updatedAt'],
+          },
+          include: [
+            {
+              model: OrderItemsEntities,
+              include: [
+                {
+                  model: ProductEntities,
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    });
   }
 }

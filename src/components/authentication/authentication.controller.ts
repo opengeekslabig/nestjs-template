@@ -50,7 +50,6 @@ export class AuthenticationController {
   @UseGuards(JwtRefreshGuard)
   @ApiOkResponse({ type: RefreshToken })
   @Get('refresh')
-  @UseGuards(JwtRefreshGuard)
   async refresh(@Req() request: RequestWithUser) {
     const { user } = request;
 

@@ -3,6 +3,9 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { Logger } from '@nestjs/common';
 import { UserEntities } from '@components/users/entities/user.entities';
 import { CredentialsEntities } from 'src/components/authentication/entities/credentials.entities';
+import { OrderItemsEntities } from '@components/orders/entities/orderItems.entities';
+import { OrderEntities } from '@components/orders/entities/orders.entities';
+import { ProductEntities } from '@components/products/entities/product.entities';
 
 export const initAppModules = [
   ConfigModule.forRoot({
@@ -34,6 +37,12 @@ export const initAppModules = [
     },
     synchronize: true,
     autoLoadModels: true,
-    models: [UserEntities, CredentialsEntities],
+    models: [
+      UserEntities,
+      CredentialsEntities,
+      OrderItemsEntities,
+      OrderEntities,
+      ProductEntities,
+    ],
   }),
 ];
